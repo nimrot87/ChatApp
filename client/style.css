@@ -5,6 +5,7 @@ html {
 
 body {
   font-family: "Roboto", sans-serif;
+  background-image: url(../client/img/powder.jpeg);
 }
 
 /* Set the custom scrollbar for the whole web application */
