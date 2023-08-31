@@ -5,7 +5,7 @@ html {
 
 body {
   font-family: "Roboto", sans-serif;
-  background-image: url(../client/img/powder.jpeg);
+
 }
 
 /* Set the custom scrollbar for the whole web application */
@@ -34,4 +34,41 @@ body {
 
 #messages {
   background-image: url("./img/whatsapp-bg-transparent.png");
+}
+
+.chat-container {
+  text-align: center;
+}
+
+.chat-box {
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 0 auto;
+  background-color: lightblue;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.user-input {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  background-color: lightblue;
+}
+
+.send-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
