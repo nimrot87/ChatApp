@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/script.js"></script>
   </head>
-  <body class="flex flex-col w-screen h-screen gap-3 text-white bg-slate-800">
+  <body class="flex flex-col w-screen h-screen gap-3 text-white bg-slate-500">
     <header class="flex items-center justify-center flex-shrink-0 pt-3 h-14">
       <h1 class="text-2xl font-bold">💬 LeisureChat</h1>
     </header>
@@ -20,12 +20,12 @@
         </div>
         <div class="input-container">
           <input type="text" class="user-input" id="userInput" placeholder="Nachricht eingeben...">
-          <button class="send-button" onclick="sendMessage()">Senden</button>
+          <button class="send-button" onclick="sendMessage()">Senden</button> <!--Funktion welche Message an Redis weitergibt onClick: sendMessage()-->
         </div>
       </div>
     </main>
     <footer class="flex items-center justify-center flex-shrink-0 h-14">
-      <p>Made with pain and a lot of 🍺 by nimrot87</p>
+      <p>Made with pain, sweat and a lot of 🍺 by nimrot87</p>
     </footer>
   </body>
 </html>

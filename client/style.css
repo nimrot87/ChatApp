@@ -33,7 +33,7 @@ body {
 }
 
 #messages {
-  background-image: url("./img/whatsapp-bg-transparent.png");
+  background-image: url("./img/wallpaper2.jpeg");
 }
 
 .chat-container {
@@ -41,13 +41,14 @@ body {
 }
 
 .chat-box {
-  width: 400px;
-  height: 300px;
-  overflow: auto;
+  width: 600px;
+  height: 500px;
+  overflow: scroll;
   border: 1px solid #ccc;
   padding: 10px;
   margin: 0 auto;
-  background-color: lightblue;
+  background-image: url("./img/wallpaper2.jpeg");
+  
 }
 
 .input-container {
@@ -62,12 +63,13 @@ body {
   padding: 5px;
   box-sizing: border-box;
   margin-bottom: 5px;
-  background-color: lightblue;
+  background-color: rgb(167, 115, 135);
+  color: black;
 }
 
 .send-button {
   padding: 5px 10px;
-  background-color: #007bff;
+  background-color:  rgb(167, 115, 135);
   color: white;
   border: none;
   cursor: pointer;
