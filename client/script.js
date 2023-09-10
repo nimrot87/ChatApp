@@ -18,7 +18,12 @@ const socket = new WebSocket(backendUrl);
 
 socket.addEventListener("open", async (event) => {
   console.log("WebSocket connected!");
+  const username = document.getElementById('newUsername').value;
+  if (username) { //ein leeres String ist falsy, wenn also nichts steht erkennt er es so!
+  document.getElementById('newUsername').value = '';
+  }
   // TODO: create message object to transmit the user to the backend
+  console.log(username);
 });
 
 socket.addEventListener("message", (event) => {
@@ -55,11 +60,19 @@ socket.addEventListener("error", (event) => {
 });
 
 function changeUsername() {
-  // TODO: Implement change username and forward new username to backend
+  const newUsername = document.getElementById("username").value;
+  if (newUsername === "") return;
+  const message = {
+    type: "user",
+    user: {
+      id: userId,
+      name: document.getElementById("username").value,
+    },
+  };
   socket.send(JSON.stringify(message));
 }
 
 function sendMessage() {
   // TODO get message from input and send message as object to backend
   socket.send(JSON.stringify(message));
-}
+};
