@@ -73,6 +73,19 @@ function changeUsername() {
 }
 
 function sendMessage() {
-  // TODO get message from input and send message as object to backend
+  const messageText = document.getElementById("message").value;
+  if (messageText === "") return;
+  const message = {
+    type: "message",
+    message: {
+      user: {
+        id: userId,
+        name: document.getElementById("username").value,
+      },
+      message: messageText,
+      time: new Date().toLocaleTimeString(),
+    },
+  };
   socket.send(JSON.stringify(message));
+  document.getElementById("message").value = "";
 };
