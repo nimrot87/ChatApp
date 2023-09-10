@@ -23,7 +23,7 @@ socket.addEventListener("open", async (event) => {
   document.getElementById('newUsername').value = '';
   }
   // TODO: create message object to transmit the user to the backend
-  console.log(username);
+  socket.send(JSON.stringify(message));
 });
 
 socket.addEventListener("message", (event) => {
@@ -32,11 +32,11 @@ socket.addEventListener("message", (event) => {
   switch (messageObject.type) {
     case "ping":
       socket.send(JSON.stringify({ type: "pong", data: "FROM CLIENT" }));
-    case "user":
-      // TODO: Show the current users as DOM elements
+    case "users":
+      showUsers(messageObject.users);
       break;
     case "message":
-      // TODO: Show new message as DOM element append to chat history
+      showMessage(messageObject.message);
       break;
     default:
       console.error("Unknown message type: " + messageObject.type);
@@ -69,6 +69,7 @@ function changeUsername() {
       name: document.getElementById("username").value,
     },
   };
+  console.log(message);
   socket.send(JSON.stringify(message));
 }
 
@@ -86,6 +87,7 @@ function sendMessage() {
       time: new Date().toLocaleTimeString(),
     },
   };
+  console.log(message);
   socket.send(JSON.stringify(message));
   document.getElementById("message").value = "";
 };
