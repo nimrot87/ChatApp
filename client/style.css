@@ -8,6 +8,18 @@ body {
 
 }
 
+nav {
+  position: absolute;
+  left: 0;
+  top: 100px;
+  right: 0;
+  bottom: 80px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+
+}
+
 /* Set the custom scrollbar for the whole web application */
 * {
   scrollbar-width: thin;
@@ -79,6 +91,7 @@ body {
   flex: 1;
   padding: 20px;
   width: 5cm;
+  background-color: antiquewhite;
 }
 .login-button {
   padding: 5px 10px;

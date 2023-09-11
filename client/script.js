@@ -18,11 +18,15 @@ const socket = new WebSocket(backendUrl);
 
 socket.addEventListener("open", async (event) => {
   console.log("WebSocket connected!");
-  const username = document.getElementById('newUsername').value;
-  if (username) { //ein leeres String ist falsy, wenn also nichts steht erkennt er es so!
-  document.getElementById('newUsername').value = '';
-  }
-  // TODO: create message object to transmit the user to the backend
+  const user = document.getElementById("username").value = user.name.first;
+  const message = {
+    type: "user",
+    user: {
+      //id: userId,
+      name: document.getElementById("username").value,
+    },
+  };
+  // TODO: create message object to transmit the user to the backend   !!CHECK!!
   socket.send(JSON.stringify(message));
 });
 
@@ -33,10 +37,10 @@ socket.addEventListener("message", (event) => {
     case "ping":
       socket.send(JSON.stringify({ type: "pong", data: "FROM CLIENT" }));
     case "users":
-      showUsers(messageObject.users);
+      showUsers(messageObject.users); //CHECK
       break;
     case "message":
-      showMessage(messageObject.message);
+      showMessage(messageObject.message); //Check
       break;
     default:
       console.error("Unknown message type: " + messageObject.type);
@@ -44,7 +48,14 @@ socket.addEventListener("message", (event) => {
 });
 
 function showUsers(users) {
-  // TODO: Show the current users as DOM elements
+  // TODO: Show the current users as DOM elements !!CHECK!!
+  const usersElement = document.getElementById("users");
+  usersElement.innerHTML = "";
+  users.forEach((user) => {
+    const userElement = document.createElement("div");
+    userElement.innerHTML = "🟢 " + user.name;
+    usersElement.appendChild(userElement);
+  });
 }
 
 function showMessage(message) {
@@ -65,7 +76,7 @@ function changeUsername() {
   const message = {
     type: "user",
     user: {
-      id: userId,
+      //id: userId,
       name: document.getElementById("username").value,
     },
   };
@@ -80,7 +91,7 @@ function sendMessage() {
     type: "message",
     message: {
       user: {
-        id: userId,
+        //id: userId,
         name: document.getElementById("username").value,
       },
       message: messageText,
