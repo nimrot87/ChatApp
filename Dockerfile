@@ -2,16 +2,19 @@
 FROM node:18
 
 # Set the working directory inside the container
-WORKDIR ...
+WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the container
-COPY ...
+COPY package.json /app/package.json
 
 # Install the dependencies
-RUN ...
+RUN yarn install
 
 # Copy the source code to the container
-COPY ...
+COPY . /app
+
+#Normally used
+EXPOSE 3000
 
 # Start the server when the container starts
-CMD ...
+CMD ["node", "app.js"]

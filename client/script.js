@@ -16,18 +16,41 @@ const socket = new WebSocket(backendUrl);
 // !!!!!!!!!!!! DON'T TOUCH ANYTHING ABOVE THIS LINE !!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+function guidGenerator() {
+  var S4 = function () {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  };
+  return (
+    S4() +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    S4() +
+    S4()
+  );
+}
+
+const userId = guidGenerator();
+
 socket.addEventListener("open", async (event) => {
   console.log("WebSocket connected!");
   const user = document.getElementById("username").value = user.name.first;
   const message = {
     type: "user",
     user: {
-      //id: userId,
+      id: userId,
       name: document.getElementById("username").value,
     },
   };
   // TODO: create message object to transmit the user to the backend   !!CHECK!!
   socket.send(JSON.stringify(message));
+  console.log(message);
 });
 
 socket.addEventListener("message", (event) => {
@@ -76,7 +99,7 @@ function changeUsername() {
   const message = {
     type: "user",
     user: {
-      //id: userId,
+      id: userId,
       name: document.getElementById("username").value,
     },
   };
@@ -91,7 +114,7 @@ function sendMessage() {
     type: "message",
     message: {
       user: {
-        //id: userId,
+        id: userId,
         name: document.getElementById("username").value,
       },
       message: messageText,
