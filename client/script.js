@@ -40,7 +40,7 @@ const userId = guidGenerator();
 
 socket.addEventListener("open", async (event) => {
   console.log("WebSocket connected!");
-  const user = document.getElementById("username").value = user.name.first;
+  const user = document.getElementById("username").value //= user.name.first;
   const message = {
     type: "user",
     user: {
@@ -83,6 +83,37 @@ function showUsers(users) {
 
 function showMessage(message) {
   // TODO: Show new message as DOM element append to chat history
+  const messageElement = document.createElement("div");
+  const innerMessageElement = document.createElement("div");
+  const headerElement = document.createElement("span");
+  const usernameElement = document.createElement("span");
+  const timeElement = document.createElement("span");
+  const messageTextElement = document.createElement("p");
+  innerMessageElement.classList.add(
+    "rounded-lg",
+    "p-4",
+    "inline-flex",
+    "flex-col",
+    "gap-2"
+  );
+  headerElement.classList.add("font-bold", "flex", "gap-2", "items-center");
+  if (message.user.id === userId) {
+    messageElement.classList.add("text-right", "self-end");
+    innerMessageElement.classList.add("bg-green-500", "border-2", "border-green-400");
+  } else {
+    innerMessageElement.classList.add("bg-slate-500", "border-2", "border-gray-400");
+  }
+  usernameElement.innerHTML = message.user.name;
+  timeElement.innerHTML = "at " + message.time;
+  timeElement.classList.add("text-xs");
+  headerElement.appendChild(usernameElement);
+  headerElement.appendChild(timeElement);
+  messageTextElement.innerHTML = message.message;
+  innerMessageElement.appendChild(headerElement);
+  innerMessageElement.appendChild(messageTextElement);
+  messageElement.appendChild(innerMessageElement);
+  document.getElementById("messages").appendChild(messageElement);
+  messageElement.scrollIntoView();
 }
 
 socket.addEventListener("close", (event) => {
