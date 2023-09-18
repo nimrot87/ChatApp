@@ -12,9 +12,49 @@ const backendUrl = window.location.origin
   .replace(/^https/, "wss");
 const socket = new WebSocket(backendUrl);
 
+// Debugging: WebSocket-Verbindung öffnen
+socket.addEventListener("open", async (event) => {
+  console.log("WebSocket connected!");
+});
+
+// Debugging: WebSocket-Nachricht empfangen
+socket.addEventListener("message", (event) => {
+  console.log("WebSocket message received:", event);
+
+  const messageObject = JSON.parse(event.data);
+  console.log("Received message from server: " + messageObject.type);
+  switch (messageObject.type) {
+    case "ping":
+      socket.send(JSON.stringify({ type: "pong", data: "FROM CLIENT" }));
+    case "user":
+      showUsers(messageObject.message);
+      break;
+    case "message":
+      showMessage(messageObject.message);
+      break;
+    default:
+      console.error("Unknown message type: " + messageObject.type);
+  }
+});
+
+// Debugging: WebSocket geschlossen
+socket.addEventListener("close", (event) => {
+  console.log("WebSocket closed:", event);
+});
+
+// Debugging: WebSocket-Fehler
+socket.addEventListener("error", (event) => {
+  console.error("WebSocket error:", event);
+});
+
+// ... (Bisheriger Code) ...
+
+
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!! DON'T TOUCH ANYTHING ABOVE THIS LINE !!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 
 function guidGenerator() {
   var S4 = function () {
@@ -38,9 +78,16 @@ function guidGenerator() {
 
 const userId = guidGenerator();
 
+async function getRandomUser() {
+  const response = await fetch("https://randomuser.me/api/");
+  const data = await response.json();
+  return data.results[0];
+}
+
 socket.addEventListener("open", async (event) => {
   console.log("WebSocket connected!");
-  const user = document.getElementById("username").value //= user.name.first;
+  const user = await getRandomUser();
+  document.getElementById("username").value = user.name.first;
   const message = {
     type: "user",
     user: {
@@ -48,9 +95,7 @@ socket.addEventListener("open", async (event) => {
       name: document.getElementById("username").value,
     },
   };
-  // TODO: create message object to transmit the user to the backend   !!CHECK!!
   socket.send(JSON.stringify(message));
-  console.log(message);
 });
 
 socket.addEventListener("message", (event) => {
@@ -59,11 +104,11 @@ socket.addEventListener("message", (event) => {
   switch (messageObject.type) {
     case "ping":
       socket.send(JSON.stringify({ type: "pong", data: "FROM CLIENT" }));
-    case "users":
-      showUsers(messageObject.users); //CHECK
+    case "user":
+      showUsers(messageObject.message);
       break;
     case "message":
-      showMessage(messageObject.message); //Check
+      showMessage(messageObject.message);
       break;
     default:
       console.error("Unknown message type: " + messageObject.type);
@@ -71,7 +116,6 @@ socket.addEventListener("message", (event) => {
 });
 
 function showUsers(users) {
-  // TODO: Show the current users as DOM elements !!CHECK!!
   const usersElement = document.getElementById("users");
   usersElement.innerHTML = "";
   users.forEach((user) => {
@@ -82,7 +126,6 @@ function showUsers(users) {
 }
 
 function showMessage(message) {
-  // TODO: Show new message as DOM element append to chat history
   const messageElement = document.createElement("div");
   const innerMessageElement = document.createElement("div");
   const headerElement = document.createElement("span");
@@ -97,14 +140,16 @@ function showMessage(message) {
     "gap-2"
   );
   headerElement.classList.add("font-bold", "flex", "gap-2", "items-center");
-  if (message.user.id === userId) {
-    messageElement.classList.add("text-right", "self-end");
-    innerMessageElement.classList.add("bg-green-500", "border-2", "border-green-400");
+
+  // Überprüfen, ob message.user definiert ist, bevor darauf zugegriffen wird
+  if (message.user) {
+    usernameElement.innerHTML = message.user.name;
+    timeElement.innerHTML = "at " + message.time;
   } else {
-    innerMessageElement.classList.add("bg-slate-500", "border-2", "border-gray-400");
+    usernameElement.innerHTML = "Unknown User";
+    timeElement.innerHTML = "Time not available";
   }
-  usernameElement.innerHTML = message.user.name;
-  timeElement.innerHTML = "at " + message.time;
+
   timeElement.classList.add("text-xs");
   headerElement.appendChild(usernameElement);
   headerElement.appendChild(timeElement);
@@ -115,6 +160,7 @@ function showMessage(message) {
   document.getElementById("messages").appendChild(messageElement);
   messageElement.scrollIntoView();
 }
+
 
 socket.addEventListener("close", (event) => {
   console.log("WebSocket closed.");
@@ -134,25 +180,33 @@ function changeUsername() {
       name: document.getElementById("username").value,
     },
   };
-  console.log(message);
   socket.send(JSON.stringify(message));
 }
 
 function sendMessage() {
   const messageText = document.getElementById("message").value;
   if (messageText === "") return;
+  const usernameInput = document.getElementById("username");
+  const userId = usernameInput.value;
+  
+  // Überprüfen, ob userId definiert ist, bevor sie verwendet wird
+  if (!userId) {
+    console.error("User ID is not defined");
+    return; // Abbrechen, wenn userId nicht definiert ist
+  }
+
   const message = {
     type: "message",
     message: {
       user: {
         id: userId,
-        name: document.getElementById("username").value,
+        name: usernameInput.value,
       },
       message: messageText,
       time: new Date().toLocaleTimeString(),
     },
   };
-  console.log(message);
   socket.send(JSON.stringify(message));
   document.getElementById("message").value = "";
-};
+
+}

@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LeisureChat</title>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
   </head>
   <body class="flex flex-col w-screen h-screen gap-3 text-white bg-slate-500">
     <header class="flex items-center justify-center flex-shrink-0 pt-3 h-14">
@@ -17,19 +17,18 @@
       <div class="login-container">
         <h2 class="font-bold self-center">Aktive User</h2>
         <div class="flex flex-col gap-1" id="users"></div>
-        <input type="text" class="login-input" id="username" placeholder="Benutzername">
-        <br>
+        <div><input type="text" class="login-input" id="username" placeholder="Benutzername">
         <button id="login" class="login-button" onclick="changeUsername()">Login</button>
+      </div>
       </div>
     </nav>
     <main class="flex justify-center overflow-y-auto grow">
       <div class="chat-container">
         <div class="chat-box" id="messages">
-          <!-- Hier können Chatnachrichten eingefügt werden -->
         </div>
         <div class="input-container">
           <input type="text" class="user-input" id="message" placeholder="Nachricht eingeben...">
-          <button class="send-button" id="send" onclick="sendMessage()">Senden</button> <!--Funktion welche Message an Redis weitergibt onClick: sendMessage()-->
+          <button class="send-button" id="send" onclick="sendMessage()">Senden</button>
         </div>
       </div>
     </main>

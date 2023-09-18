@@ -15,9 +15,9 @@ const initializeWebsocketServer = async (server) => {
   });
   await redisClient.connect();
 
- const websocketServer = new WebSocket.Server({ server });
- websocketServer.on("connection", onConnection);
- websocketServer.on("error", console.error);
+  const websocketServer = new WebSocket.Server({ server });
+  websocketServer.on("connection", onConnection);
+  websocketServer.on("error", console.error);
 };
 
 // If a new connection is established, the onConnection function is called
@@ -25,14 +25,14 @@ const onConnection = (ws) => {
   console.log("New websocket connection");
   ws.on("close", () => onClose(ws));
   ws.on("message", (message) => onClientMessage(ws, message));
-  // TODO: Send all connected users and current message history to the new client
-  //Neu
-  ws.send(JSON.stringify({ type: "users", data: clients.length }));
-  ws.send(JSON.stringify({ type: "messageHistory", data: messageHistory }));
-  //bestehend
-  ws.send(JSON.stringify({ type: "ping", data: "FROM SERVER" }));
+  // TODO: Send all connected users and current message history to the new client !!CHECK!!
+  const users = clients.map((client) => client.user);
+  ws.send(JSON.stringify({ type: "user", message: users }));
+  const history = getMessageHistory();
+  if (history) {
+    ws.send(JSON.stringify({ type: "message", message: history }));
+  }
 };
-
 
 // If a new message is received, the onClientMessage function is called
 const onClientMessage = async (ws, message) => {
@@ -41,42 +41,36 @@ const onClientMessage = async (ws, message) => {
   switch (messageObject.type) {
     case "pong":
       console.log("Received from client: " + messageObject.data);
+      break;
     case "user":
-      // TODO: Publish all connected users to all connected clients !!!CHeck!!!
-      //Neu
-      const users = clients.length;
+      // Add user to the list of clients
+      const newUser = messageObject.user;
+      clients.push({ ws, user: newUser });
+      // Publish all connected users to all connected clients
+      const users = clients.map((client) => client.user);
       clients.forEach((client) => {
-        client.send(JSON.stringify({ type: "users", data: users }));
+        client.ws.send(JSON.stringify({ type: "user", message: users }));
       });
       break;
     case "message":
-      // TODO: Publish new message to all connected clients and save in redis !!!GPT!!!
-      //Neu
-      messageHistory.push(messageObject.data);
+      // Publish new message to all connected clients and save in redis
+      const newMessage = messageObject.message;
+      messageHistory.push(newMessage);
+      setMessageHistory(messageHistory);
       clients.forEach((client) => {
-        client.send(JSON.stringify({ type: "message", data: messageObject.data }));
+        client.ws.send(JSON.stringify({ type: "message", message: newMessage }));
       });
-      await setMessageHistory(messageHistory);
       break;
     default:
       console.error("Unknown message type: " + messageObject.type);
   }
 };
 
-
 // If a connection is closed, the onClose function is called
 const onClose = async (ws) => {
   console.log("Websocket connection closed");
-  // TODO: Remove related user from connected users and propagate new list !!!CHECK!!!
-  //Neu
-  clients = clients.filter((client) => client !== ws);
-  // Sende die aktualisierte Anzahl der verbundenen Benutzer an alle verbleibenden Clients
-  const users = clients.length;
-  clients.forEach((client) => {
-    client.send(JSON.stringify({ type: "users", data: users }));
-  });
+  // TODO: Remove related user from connected users and propagate new list
 };
-
 
 const getMessageHistory = async () => {
   return await redisClient.get("messageHistory");

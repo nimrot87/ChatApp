@@ -11,9 +11,9 @@ body {
 nav {
   position: absolute;
   left: 0;
-  top: 100px;
+  top: 20px;
   right: 0;
-  bottom: 80px;
+  bottom: 20px;
   width: 200px;
   display: flex;
   flex-direction: column;
