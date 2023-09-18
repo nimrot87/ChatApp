@@ -164,3 +164,4 @@ function sendMessage() {
   socket.send(JSON.stringify(message));
   document.getElementById("message").value = "";
 }
+

@@ -38,6 +38,7 @@ const onConnection = (ws) => {
   ws.on("close", () => onClose(ws));
   ws.on("message", (message) => onClientMessage(ws, message));
   // TODO: Send all connected users and current message history to the new client
+  
   //ws.send(JSON.stringify({ type: "ping", data: "FROM SERVER" }));
 };
 // Get all users from redis
