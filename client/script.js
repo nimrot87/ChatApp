@@ -21,9 +21,16 @@ function generateUserId() {
   const formattedUserId = randomNumber.toString().padStart(10, '0');
   return formattedUserId;
 }
+function generateGuestNr() {
+  const randomNumber = Math.floor(Math.random() * Math.pow(10, 2));
+  const formattedGuestNr = randomNumber.toString().padStart(2, '0');
+  return formattedGuestNr;
+}
 
 console.log(generateUserId());
 const userId = generateUserId();
+console.log(generateGuestNr());
+const guestNr = generateGuestNr();
 
 
 socket.addEventListener("open", async (event) => {
