@@ -36,13 +36,24 @@ body {
 }
 #message {
   background-color: rgb(167, 115, 135);
+  color: whitesmoke;
+  padding: 4px;
+  height: 12;
 }
 #username {
   background-color: rgb(167, 115, 135);
+  color: whitesmoke;
+  padding: 4px;
+  height: 12;
 }
 #login {
   background-color: rgb(140, 65, 94);
+  opacity: 0.5;
 }
 #send {
   background-color: rgb(140, 65, 94);
+  opacity: 0.5;
+  
 }
+#send:hover {opacity: 1;}
+#login:hover {opacity: 1;}
