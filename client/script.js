@@ -25,17 +25,12 @@ function generateUserId() {
 console.log(generateUserId());
 const userId = generateUserId();
 
-async function getRandomUser() {
-  const response = await fetch("https://randomuser.me/api/");
-  const data = await response.json();
-  return data.results[0];
-}
 
 socket.addEventListener("open", async (event) => {
   console.log("WebSocket connected!");
   // TODO: create message object to transmit the user to the backend !!CHECK!!
-  const user = await getRandomUser();
-  document.getElementById("username").value = user.name.first;
+  const user = {name: 'Gast'};
+  document.getElementById("username").value = user.name;
   const message = {
     type: "user",
     user: {
@@ -94,9 +89,9 @@ function showMessage(message) {
   headerElement.classList.add("font-bold", "flex", "gap-2", "items-center");
   if (message.user.id === userId) {
     messageElement.classList.add("text-right", "self-end");
-    innerMessageElement.classList.add("bg-green-800", "border-1", "border-black-300");
+    innerMessageElement.classList.add("bg-green-800", "border-1", "border-white-300");
   } else {
-    innerMessageElement.classList.add("bg-red-900", "border-1", "border-black-300");
+    innerMessageElement.classList.add("bg-red-900", "border-1", "border-white-300");
   }
   usernameElement.innerHTML = message.user.name;
   timeElement.innerHTML = "at " + message.time;
