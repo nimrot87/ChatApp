@@ -36,7 +36,7 @@ const guestNr = generateGuestNr();
 socket.addEventListener("open", async (event) => {
   console.log("WebSocket connected!");
   // TODO: create message object to transmit the user to the backend !!CHECK!!
-  const user = {name: 'Gast'};
+  const user = {name: 'Gast ' + guestNr};
   document.getElementById("username").value = user.name;
   const message = {
     type: "user",
@@ -52,8 +52,8 @@ socket.addEventListener("message", (event) => {
   const messageObject = JSON.parse(event.data);
   console.log("Received message from server: " + messageObject.type);
   switch (messageObject.type) {
-    case "ping":
-      socket.send(JSON.stringify({ type: "pong", data: "FROM CLIENT" }));
+    //case "ping":
+      //socket.send(JSON.stringify({ type: "pong", data: "FROM CLIENT" }));
     case "users":
       // TODO: Show the current users as DOM elements !!CHECK!!
       showUsers(messageObject.users);

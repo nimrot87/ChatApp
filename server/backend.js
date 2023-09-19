@@ -61,8 +61,8 @@ const onClientMessage = async (ws, message) => {
   const messageObject = JSON.parse(message);
   console.log("Received message from client: " + messageObject.type);
   switch (messageObject.type) {
-    case "pong":
-      console.log("Received from client: " + messageObject.data);
+    //case "pong":
+      //console.log("Received from client: " + messageObject.data);
     case "user":
       // TODO: Publish all connected users to all connected clients !!CHECK!!
       clients = clients.filter((client) => client.ws !== ws);
