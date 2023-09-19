@@ -16,27 +16,14 @@ const socket = new WebSocket(backendUrl);
 // !!!!!!!!!!!! DON'T TOUCH ANYTHING ABOVE THIS LINE !!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-function guidGenerator() {
-  var S4 = function () {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-  };
-  return (
-    S4() +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    S4() +
-    S4()
-  );
+function generateUserId() {
+  const randomNumber = Math.floor(Math.random() * Math.pow(10, 10));
+  const formattedUserId = randomNumber.toString().padStart(10, '0');
+  return formattedUserId;
 }
 
-const userId = guidGenerator();
+console.log(generateUserId());
+const userId = generateUserId();
 
 async function getRandomUser() {
   const response = await fetch("https://randomuser.me/api/");
