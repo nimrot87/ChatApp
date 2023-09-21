@@ -7,7 +7,7 @@ services:
     ports:
       - 6379:6379
   chat:
-    image: nimrot87/chatapptest 
+    image: nimrot87/chat_app_mem
     restart: always
     ports:
       - 9700:3000
