@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: chat-ingress 
-  namespace: {{ redis }}
+  namespace: pvs-teko9
   annotations:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     acme.cert-manager.io/http01-edit-in-place: "true"
@@ -12,10 +12,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - {{ hostname }}.ch # Replace with your hostname in format *.teko.hackerman.ch Example: lastname.teko.hackerman.ch
-      secretName: {{ hostname }}-tls # Replace with your hostname in format *.teko.hackerman.ch Example: lastname.teko.hackerman.ch
+        - mmeier.teko.hackerman.ch # Replace with your hostname in format *.teko.hackerman.ch Example: lastname.teko.hackerman.ch !!CHECK!!
+      secretName: mmeier.teko.hackerman.ch-tls # Replace with your hostname in format *.teko.hackerman.ch Example: lastname.teko.hackerman.ch !!CHECK!!
   rules:
-    - host: {{ hostname }} # Replace with your hostname in format *.teko.hackerman.ch Example: lastname.teko.hackerman.ch
+    - host: mmeier.teko.hackerman.ch # Replace with your hostname in format *.teko.hackerman.ch Example: lastname.teko.hackerman.ch !!CHECK!!
       http:
         paths:
           - path: /
