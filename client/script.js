@@ -36,7 +36,7 @@ const guestNr = generateGuestNr();
 socket.addEventListener("open", async (event) => {
   console.log("WebSocket connected!");
   // TODO: create message object to transmit the user to the backend !!CHECK!!
-  const user = {name: 'Gast ' + guestNr};
+  const user = {name: 'Gast_' + guestNr};
   document.getElementById("username").value = user.name;
   const message = {
     type: "user",
