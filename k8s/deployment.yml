@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: chat
-          image: switzerchees/pvs-chat:latest
+          image: nimrot87/chat_app_mem:latest
           resources:
             limits:
               cpu: "0.5"
