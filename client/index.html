@@ -9,9 +9,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/script.js"></script>
   </head>
-  <body class="flex flex-col bg-slate-700 text-white h-screen w-screen gap-3">
+  <body>
     <div class="absolute left-0 top-0 bottom-0 pl-8 flex items-center">
-      <div class="flex flex-col bg-slate-500 w-80 rounded-lg p-4 gap-4">
+      <div class="flex flex-col bg-slate-700 w-80 rounded-lg p-4 gap-4" id="UserContainer">
         <h2 class="font-bold self-center">Aktive User</h2>
         <div class="flex flex-col gap-1" id="users"></div>
         <div class="flex">
@@ -29,8 +29,8 @@
         </div>
       </div>
     </div>
-    <header class="flex justify-center items-center h-14 flex-shrink-0 pt-3">
-      <h1 class="font-bold text-2xl">🪩💿🎷 Leisure Talk 🏈🎾⚽️</h1>
+    <header>
+      <h1 class="title1">🪩💿🎷 Leisure Talk 🏈🎾⚽️</h1>
     </header>
     <main class="grow flex justify-center overflow-y-auto">
       <div
@@ -56,7 +56,7 @@
         </button>
       </div>
     </div>
-    <footer class="flex justify-center h-14 items-center flex-shrink-0">
+    <footer>
       <p>Made with pain, sweat and a lot of 🍺 by nimrot87</p>
     </footer>
   </body>

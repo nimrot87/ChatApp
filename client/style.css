@@ -5,7 +5,16 @@ html {
 
 body {
   font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-color: darkslategray;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  gap: 3px;
 }
+
+
 
 /* Set the custom scrollbar for the whole web application */
 * {
@@ -57,3 +66,25 @@ body {
 }
 #send:hover {opacity: 1;}
 #login:hover {opacity: 1;}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  flex-shrink: 0;
+  padding-top: 3vh;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
+  flex-shrink: 0;
+}
+
+.title1 {
+  font-weight: bold;
+  font-size: 2rem;
+}
