@@ -54,10 +54,17 @@ body {
   color: whitesmoke;
   padding: 4px;
   height: 12;
+  width: 15rem;
+  border-radius: 0.5rem;
 }
 #login {
   background-color: rgb(140, 65, 94);
   opacity: 0.5;
+  color: whitesmoke;
+  padding: 4px;
+  height: 12;
+  width: 5rem;
+  border-radius: 0.5rem;
 }
 #send {
   background-color: rgb(140, 65, 94);
@@ -92,7 +99,7 @@ footer {
 .appInput {
   display: flex;
   justify-content: center;
-  height: 7vh;
+  height: 5vh;
   flex-shrink: 0;
 }
 
