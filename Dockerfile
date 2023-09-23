@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json /app/package.json
 #oder . .
 # Install the dependencies
-RUN yarn install
+RUN npm install
 
 # Copy the source code to the container
 COPY . /app
@@ -17,4 +17,4 @@ COPY . /app
 EXPOSE 3000
 
 # Start the server when the container starts
-CMD ["yarn", "prod"]
+CMD ["node", "app.js"]
