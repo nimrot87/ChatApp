@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: darkslategray;
-  color: white;
+  color: whitesmoke;
   height: 100vh;
   width: 100vw;
   gap: 3px;
@@ -80,11 +80,38 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 8vh;
+  height: 10vh;
   flex-shrink: 0;
 }
 
 .title1 {
   font-weight: bold;
   font-size: 2rem;
+}
+
+.appInput {
+  display: flex;
+  justify-content: center;
+  height: 7vh;
+  flex-shrink: 0;
+}
+
+.appInputContainer {
+  display: flex;
+  flex-grow: 1;
+  max-width: 48rem;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.messageInput {
+  color: whitesmoke;
+  border-radius: 0.5rem;
+  width: 40rem;
+}
+
+.sendButton {
+  color: whitesmoke;
+  border-radius: 0.5rem;
+  width: 8rem;
 }

@@ -21,7 +21,7 @@
           />
           <button
             id="login"
-            class="h-12 text-white px-4"
+            class="h-12 text-white rounded-lg px-4"
             onclick="changeUsername()"
           >
             Login
@@ -38,18 +38,18 @@
         id="messages"
       ></div>
     </main>
-    <div class="flex justify-center h-12 flex-shrink-0">
-      <div class="flex grow max-w-3xl">
+    <div class="appInput">
+      <div class="appInputContainer">
         <input
           type="text"
           id="message"
-          class="h-12 text-white grow px-4"
+          class="messageInput"
           placeholder="Nachricht..."
           onkeydown="if (event.key === 'Enter') sendMessage()"
         />
         <button
           id="send"
-          class="h-12 text-white px-4"
+          class="sendButton"
           onclick="sendMessage()"
         >
           Senden
