@@ -37,9 +37,9 @@ const onConnection = (ws) => {
   console.log("New websocket connection");
   ws.on("close", () => onClose(ws));
   ws.on("message", (message) => onClientMessage(ws, message));
-  // TODO: Send all connected users and current message history to the new client
+  // TODO: Send all connected users and current message history to the new client !!Open!!
   
-  //ws.send(JSON.stringify({ type: "ping", data: "FROM SERVER" }));
+  //ws.send(JSON.stringify({ type: "ping", data: "FROM SERVER" })); !!Wird in dieser Lösung nicht umgesetzt!!
 };
 // Get all users from redis
 const getUsersFromRedis = async () => {
@@ -61,7 +61,7 @@ const onClientMessage = async (ws, message) => {
   const messageObject = JSON.parse(message);
   console.log("Received message from client: " + messageObject.type);
   switch (messageObject.type) {
-    //case "pong":
+    //case "pong": !!Wird in dieser Lösung nicht umgesetzt!!
       //console.log("Received from client: " + messageObject.data);
     case "user":
       // TODO: Publish all connected users to all connected clients !!CHECK!!
@@ -143,13 +143,15 @@ const pushUsers = async () => {
     client.ws.send(JSON.stringify(message));
   });
 };
-
-const getMessageHistory = async () => {
-  return await redisClient.get("messageHistory");
-};
-
-const setMessageHistory = async (messageHistory) => {
-  await redisClient.set("messageHistory", messageHistory);
-};
-
 module.exports = { initializeWebsocketServer };
+
+// !!Diese Funktionen konnten leider nicht umgesetzt werden!!
+//const getMessageHistory = async () => {
+//  return await redisClient.get("messageHistory");
+//};
+
+//const setMessageHistory = async (messageHistory) => {
+//  await redisClient.set("messageHistory", messageHistory);
+//};
+
+

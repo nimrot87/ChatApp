@@ -27,10 +27,10 @@ function generateGuestNr() {
   return formattedGuestNr;
 }
 
-console.log(generateUserId());
+//console.log(generateUserId()); Ausgabe nur zu Testzwecken
 const userId = generateUserId();
-console.log(generateGuestNr());
-const guestNr = generateGuestNr();
+//console.log(generateGuestNr()); Ausgabe nur zu Testzwecken
+const guestNr = generateGuestNr(); 
 
 
 socket.addEventListener("open", async (event) => {
@@ -52,7 +52,7 @@ socket.addEventListener("message", (event) => {
   const messageObject = JSON.parse(event.data);
   console.log("Received message from server: " + messageObject.type);
   switch (messageObject.type) {
-    //case "ping":
+    //case "ping": !!Wird in dieser Lösung nicht umgesetzt!!
       //socket.send(JSON.stringify({ type: "pong", data: "FROM CLIENT" }));
     case "users":
       // TODO: Show the current users as DOM elements !!CHECK!!
@@ -136,7 +136,7 @@ function changeUsername() {
 }
 
 function sendMessage() {
-  // TODO get message from input and send message as object to backend
+  // TODO get message from input and send message as object to backend !!CHECK!!
   const messageText = document.getElementById("message").value;
   if (messageText === "") return;
   const message = {
