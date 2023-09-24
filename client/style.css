@@ -14,7 +14,10 @@ body {
   gap: 3px;
 }
 
-
+main {
+  margin-left: 100px;
+  overflow: auto;
+}
 /* Set the custom scrollbar for the whole web application */
 * {
   scrollbar-width: thin;
@@ -91,6 +94,7 @@ footer {
   justify-content: center;
   height: 5vh;
   flex-shrink: 0;
+  overflow: auto;
 }
 
 .appInputContainer {
@@ -99,14 +103,18 @@ footer {
   max-width: 48rem;
   justify-content: center;
   border-radius: 0.5rem;
+  overflow: auto;
+  margin-left: 100px;
 }
 
 #message {
+  display: flex;
   background-color: rgb(167, 115, 135);
   color: whitesmoke;
   border-radius: 0.5rem;
   width: 40rem;
-  padding: 8px;
+  justify-content: center;
+  overflow: auto;
 }
 
 #send {
@@ -115,4 +123,5 @@ footer {
   border-radius: 0.5rem;
   width: 8rem;
   opacity: 0.5;
+  overflow: auto;
 }
